@@ -14,7 +14,7 @@ public class ProductRepo {
     }
 
     public Map<String, Product> list() {
-        return null;
+        return products;
     }
 
     public Product get(String productId) {

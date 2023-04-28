@@ -59,5 +59,18 @@ class ProductRepoTest {
         // then
         assertNull(actual);
     }
-
+    @Test
+    void testList_positive_case() {
+        //given
+        Product product1 = new Product("p1", "Toaster");
+        Product product2 = new Product("p2", "Waschmaschine");
+        ProductRepo productRepo = new ProductRepo();
+        Map<String, Product> expected = new HashMap<>();
+        expected.put(product2.getId(), product2);
+        productRepo.setProducts(expected);
+        //when
+        Map<String, Product> actual = productRepo.list();
+        //then
+        assertEquals(expected, actual);
+    }
 }
