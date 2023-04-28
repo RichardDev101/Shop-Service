@@ -101,5 +101,6 @@ public class Main {
         shopService.setProductRepo(productRepo);
 
         shopService.getProduct("P1");
+        shopService.listProducts();
     }
 }

@@ -18,14 +18,15 @@ public class ShopService {
         this.productRepo = new ProductRepo();
     }
 
-    public Product getProduct(String productId) {
+    public void getProduct(String productId) {
 
         System.out.println(productRepo.get(productId));
-        return null;
+
     }
 
-    public Map<String, Product> listProducts() {
-        return null;
+    public void listProducts() {
+
+        System.out.println(productRepo.list());
     }
 
     public Map<String, Order> addOrder(Order newOrder) {
