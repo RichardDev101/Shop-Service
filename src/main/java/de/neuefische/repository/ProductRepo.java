@@ -9,6 +9,10 @@ public class ProductRepo {
 
     private Map<String, Product> products = new HashMap<>();
 
+    public void setProducts(Map<String, Product> products) {
+        this.products = products;
+    }
+
     public Map<String, Product> list() {
         return null;
     }
