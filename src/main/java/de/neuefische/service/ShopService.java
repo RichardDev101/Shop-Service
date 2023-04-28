@@ -1,6 +1,7 @@
 package de.neuefische.service;
 
 import de.neuefische.exceptions.OrderNotFoundException;
+import de.neuefische.exceptions.ProductNotFoundException;
 import de.neuefische.model.Order;
 import de.neuefische.model.Product;
 import de.neuefische.repository.OrderRepo;
@@ -25,7 +26,11 @@ public class ShopService {
 
     public void getProduct(String productId) {
 
-        System.out.println(productRepo.get(productId));
+        try {
+            System.out.println(productRepo.get(productId));
+        } catch (ProductNotFoundException e) {
+            System.out.println("Product with id " + productId + " not found");;
+        }
 
     }
 

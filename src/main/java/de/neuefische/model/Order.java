@@ -6,15 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 public class Order {
+
+    static int counter;
     private String id;
 
     private List<Product> products = new ArrayList<>();
 
     public Order() {
+        counter++;
+        id = String.valueOf(counter);
 
     }
     public Order(String id) {
         this.id = id;
+        counter++;
     }
 
     public Order(String id, List<Product> products) {

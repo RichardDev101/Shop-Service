@@ -1,5 +1,6 @@
 package de.neuefische;
 
+import de.neuefische.exceptions.ProductNotFoundException;
 import de.neuefische.model.Order;
 import de.neuefische.model.Product;
 import de.neuefische.repository.OrderRepo;
@@ -121,15 +122,23 @@ public class Main {
                 Scanner scanner1 = new Scanner(System.in);
                 input =scanner1.nextLine();
                 String[] ids = input.split(" ");
-                Order orderToAdd = new Order("4711");
+                Order orderToAdd = new Order();
                 List<Product> products = new ArrayList<>();
                 for (int i = 0; i < ids.length; i++) {
 
-                    Product productToAdd = shopService.getProductRepo().get(ids[i]);
-                    products.add(productToAdd);
+                    Product productToAdd = null;
+                    try {
+                        productToAdd = shopService.getProductRepo().get(ids[i]);
+                    } catch (ProductNotFoundException e) {
+                        System.out.println("Product with id " + ids[i] + " not found");;
+                    }
+                    if(productToAdd != null)
+                        products.add(productToAdd);
                 }
-                orderToAdd.setProducts(products);
-                shopService.addOrder(orderToAdd);
+                if(!products.isEmpty()) {
+                    orderToAdd.setProducts(products);
+                    shopService.addOrder(orderToAdd);
+                }
                 break;
             case "f":
                 flag = false;
@@ -149,7 +158,8 @@ public class Main {
         menue.put("b", "Alle Produkte anzeigen.");
         menue.put("c", "Einzelndes Bestellung anzeigen.");
         menue.put("d", "Alle Bestellungen anzeigen");
-        menue.put("e", "SERVICE BEENDEN");
+        menue.put("e", "Bestellung aufgeben");
+        menue.put("f", "SERVICE BEENDEN");
         return menue;
     }
 
