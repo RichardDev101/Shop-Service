@@ -13,6 +13,18 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+
+        ShopService shopService = initializeShopService();
+
+
+        //Flag for While loop
+        boolean selectionChoosed = true;
+        while (serviceMenu(shopService, selectionChoosed)) {
+
+        }
+    }
+
+    public static ShopService initializeShopService() {
         //PRODUCT CREATION
         //-----------------
         Product product1 = new Product("P1", "Vacuum Cleaner");
@@ -47,8 +59,8 @@ public class Main {
 
 
         //Order
-        Order order1 = new Order();
-        Order order2 = new Order();
+        Order order1 = new Order("O1");
+        Order order2 = new Order("O2");
 
         List<Product> orderProducts1 = new ArrayList<>();
         orderProducts1.add(product1);
@@ -73,37 +85,18 @@ public class Main {
 
         //Shopservice Instanciation+ Initialisation
         ShopService shopService = new ShopService();
+        shopService.setOrderRepo(orderRepo);
         shopService.setProductRepo(productRepo);
 
-        //Flag for While loop
-        boolean selectionChoosed = true;
-        while (serviceMenu(shopService, selectionChoosed)) {
-
-        }
-
-
-
-            shopService.setOrderRepo(orderRepo);
-            shopService.setProductRepo(productRepo);
-
-            shopService.getProduct("P1");
-            shopService.listProducts();
-
-
-
+        return shopService;
     }
 
 
-    public static String serviceMenu (ShopService shopService, boolean flag) {
+    public static boolean serviceMenu (ShopService shopService, boolean flag) {
         System.out.println("Welche Serviceleistung wollen Sie in Anspruch nehmen?");
         Scanner scanner = new Scanner(System.in);
         //Menu-Service-Request
-        Map<String, String> menue = new HashMap<>();
-        menue.put("a", "Einzelndes Produkt anzeigen.");
-        menue.put("b", "Alle Produkte anzeigen.");
-        menue.put("c", "Einzelndes Bestellung anzeigen.");
-        menue.put("d", "Alle Bestellungen anzeigen");
-        menue.put("e", "SERVICE BEENDEN");
+        System.out.println(generateShopMenue());
         String input = scanner.next();
 
         switch (input) {
@@ -111,26 +104,53 @@ public class Main {
                 System.out.println("Geben Sie bitte die gewünschte Produkt-ID an.");
                 input = scanner.next();
                 shopService.getProduct(input);
-                return selectionChoosed;
+                return flag;
             case "b":
                 shopService.listProducts();
-                break;
+                return flag;
             case "c":
                 System.out.println("Geben Sie bitte die gewünschte ORDER-ID an.");
                 input = scanner.next();
                 shopService.getOrder(input);
-                break;
+                return flag;
             case "d":
                 shopService.listOrders();
-                break;
+                return flag;
             case "e":
-                selectionChoosed = false;
-                System.out.println("Service wurde beendet.");
+                System.out.println("Geben Sie bitte die Produkt-IDs der Produkte an, die Sie bestellen möchten");
+                Scanner scanner1 = new Scanner(System.in);
+                input =scanner1.nextLine();
+                String[] ids = input.split(" ");
+                Order orderToAdd = new Order("4711");
+                List<Product> products = new ArrayList<>();
+                for (int i = 0; i < ids.length; i++) {
+
+                    Product productToAdd = shopService.getProductRepo().get(ids[i]);
+                    products.add(productToAdd);
+                }
+                orderToAdd.setProducts(products);
+                shopService.addOrder(orderToAdd);
                 break;
+            case "f":
+                flag = false;
+                System.out.println("Service wurde beendet.");
+                return flag;
             default:
                 System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
-                break;
+                //return flag;
         }
+        return flag;
+
+    }
+
+    private static Map<String, String> generateShopMenue() {
+        Map<String, String> menue = new HashMap<>();
+        menue.put("a", "Einzelndes Produkt anzeigen.");
+        menue.put("b", "Alle Produkte anzeigen.");
+        menue.put("c", "Einzelndes Bestellung anzeigen.");
+        menue.put("d", "Alle Bestellungen anzeigen");
+        menue.put("e", "SERVICE BEENDEN");
+        return menue;
     }
 
 }

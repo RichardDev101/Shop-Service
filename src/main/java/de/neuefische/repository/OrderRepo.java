@@ -30,7 +30,7 @@ public class OrderRepo {
     }
 
     public Map<String, Order> add(Order newOrder) {
-        orders.put(newOrder.getId(), new Order());
+        orders.put(newOrder.getId(), newOrder);
         return orders;
     }
 

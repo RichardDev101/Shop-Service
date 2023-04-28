@@ -19,6 +19,10 @@ public class ShopService {
         this.productRepo = new ProductRepo();
     }
 
+    public ProductRepo getProductRepo() {
+        return productRepo;
+    }
+
     public void getProduct(String productId) {
 
         System.out.println(productRepo.get(productId));
