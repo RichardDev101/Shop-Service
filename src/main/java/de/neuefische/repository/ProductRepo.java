@@ -9,5 +9,11 @@ public class ProductRepo {
 
     private Map<String, Product> products = new HashMap<>();
 
+    public Map<String, Product> list() {
+        return null;
+    }
 
+    public Product get(String productId) {
+        return null;
+    }
 }

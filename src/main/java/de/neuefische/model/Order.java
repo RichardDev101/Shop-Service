@@ -9,7 +9,7 @@ public class Order {
     private Map<String, Order> orders = new HashMap<>();
 
     public Order() {
-        
+
     }
     public Order(String id) {
         this.id = id;
