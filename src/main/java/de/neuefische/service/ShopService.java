@@ -1,5 +1,6 @@
 package de.neuefische.service;
 
+import de.neuefische.exceptions.OrderNotFoundException;
 import de.neuefische.model.Order;
 import de.neuefische.model.Product;
 import de.neuefische.repository.OrderRepo;
@@ -30,14 +31,24 @@ public class ShopService {
     }
 
     public Map<String, Order> addOrder(Order newOrder) {
-        return null;
+        Map<String, Order> result = orderRepo.add(newOrder);
+        System.out.println("Order added: " + newOrder);
+        return result;
     }
 
     public Order getOrder(String orderId) {
-        return null;
+        Order order = null;
+        try {
+            order = orderRepo.get(orderId);
+        } catch (OrderNotFoundException e) {
+            System.out.println("No order for orderId " + orderId + " found.");;
+        }
+        System.out.println(order);
+        return order;
     }
 
     public Map<String, Order> listOrders() {
+        System.out.println(orderRepo.list());
         return null;
     }
 
