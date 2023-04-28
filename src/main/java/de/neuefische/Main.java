@@ -8,6 +8,7 @@ import de.neuefische.repository.OrderRepo;
 import de.neuefische.repository.ProductRepo;
 import de.neuefische.service.ShopService;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 // Press ⇧ twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -142,6 +143,7 @@ public class Main {
                     orderToAdd.setProducts(products);
                     shopService.addOrder(orderToAdd);
                     orderToAdd.setOrderstatus(OrderStatus.COMPLETED);
+                    orderToAdd.setDateTime(LocalDateTime.now());
                 }
                 break;
             case "f":

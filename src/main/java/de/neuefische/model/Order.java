@@ -1,5 +1,6 @@
 package de.neuefische.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,18 @@ public class Order {
 
     private List<Product> products = new ArrayList<>();
 
+    private OrderStatus orderstatus;
+
+    private LocalDateTime dateTime;
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
     public OrderStatus getOrderstatus() {
         return orderstatus;
     }
@@ -20,7 +33,6 @@ public class Order {
         this.orderstatus = orderstatus;
     }
 
-    private OrderStatus orderstatus;
 
     public Order() {
         counter++;
@@ -59,6 +71,7 @@ public class Order {
                 "id='" + id + '\'' +
                 ", products=" + products +
                 ", orderstatus=" + orderstatus +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
