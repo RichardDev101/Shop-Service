@@ -74,28 +74,50 @@ public class Main {
         System.out.println("Welche Serviceleistung wollen Sie in Anspruch nehmen?");
         Scanner scanner = new Scanner(System.in);
 
+        //Shopservice Instanciation+ Initialisation
+        ShopService shopService = new ShopService();
+        shopService.setProductRepo(productRepo);
+
+        //Menu-Service-Request
         Map<String, String> menue = new HashMap<>();
         menue.put("a", "Einzelndes Produkt anzeigen.");
         menue.put("b", "Alle Produkte anzeigen.");
         menue.put("c", "Einzelndes Bestellung anzeigen.");
         menue.put("d", "Alle Bestellungen anzeigen");
+        menue.put("e", "SERVICE BEENDEN");
         String input= scanner.next();
-        switch(input){
-            case "a":
-                break;
-            case "b":
-                break;
-            case "c":
-                break;
-            case "d":
-                break;
-            default:
-                System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
-                break;
 
+        //Flag for While loop
+        Boolean selectionChoosed = true;
+
+        while (selectionChoosed){
+            switch(input) {
+                case "a":
+                    System.out.println("Geben Sie bitte die gewünschte Produkt-ID an.");
+                    input = scanner.next();
+                    shopService.getProduct(input);
+                    break;
+                case "b":
+                    shopService.listProducts();
+                    break;
+                case "c":
+                    System.out.println("Geben Sie bitte die gewünschte ORDER-ID an.");
+                    input = scanner.next();
+                    shopService.getOrder(input);
+                    break;
+                case "d":
+                    shopService.listOrders();
+                    break;
+                case "e":
+                    selectionChoosed = false;
+                    System.out.println("Service wurde beendet.");
+                    break;
+                default:
+                    System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
+                    break;
+            }
         }
 
-        ShopService shopService = new ShopService();
 
         shopService.setOrderRepo(orderRepo);
         shopService.setProductRepo(productRepo);
