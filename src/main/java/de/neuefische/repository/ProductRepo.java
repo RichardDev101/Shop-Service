@@ -18,6 +18,6 @@ public class ProductRepo {
     }
 
     public Product get(String productId) {
-        return null;
+        return products.get(productId);
     }
 }
