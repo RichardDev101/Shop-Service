@@ -2,6 +2,7 @@ package de.neuefische;
 
 import de.neuefische.exceptions.ProductNotFoundException;
 import de.neuefische.model.Order;
+import de.neuefische.model.OrderStatus;
 import de.neuefische.model.Product;
 import de.neuefische.repository.OrderRepo;
 import de.neuefische.repository.ProductRepo;
@@ -61,7 +62,9 @@ public class Main {
 
         //Order
         Order order1 = new Order("O1");
+        order1.setOrderstatus(OrderStatus.CANCELED);
         Order order2 = new Order("O2");
+        order2.setOrderstatus(OrderStatus.IN_DELIVERY);
 
         List<Product> orderProducts1 = new ArrayList<>();
         orderProducts1.add(product1);
@@ -138,6 +141,7 @@ public class Main {
                 if(!products.isEmpty()) {
                     orderToAdd.setProducts(products);
                     shopService.addOrder(orderToAdd);
+                    orderToAdd.setOrderstatus(OrderStatus.COMPLETED);
                 }
                 break;
             case "f":

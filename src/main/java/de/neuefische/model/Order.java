@@ -12,6 +12,16 @@ public class Order {
 
     private List<Product> products = new ArrayList<>();
 
+    public OrderStatus getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(OrderStatus orderstatus) {
+        this.orderstatus = orderstatus;
+    }
+
+    private OrderStatus orderstatus;
+
     public Order() {
         counter++;
         id = String.valueOf(counter);
@@ -48,6 +58,7 @@ public class Order {
         return "Order{" +
                 "id='" + id + '\'' +
                 ", products=" + products +
+                ", orderstatus=" + orderstatus +
                 '}';
     }
 }
