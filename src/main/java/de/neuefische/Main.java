@@ -3,9 +3,10 @@ package de.neuefische;
 import de.neuefische.model.Order;
 import de.neuefische.model.Product;
 import de.neuefische.repository.OrderRepo;
+import de.neuefische.repository.ProductRepo;
+import de.neuefische.service.ShopService;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // Press ⇧ twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -22,49 +23,83 @@ public class Main {
         Product product6 = new Product("P6","Couch");
         Product product7 = new Product("P7","Wine Rack");
         Product product8 = new Product("P8","Siemens Fridge");
-        Product product9 = new Product("P8","Bathroom cabinet");
-        Product product10 = new Product("P8","Mirror");
+        Product product9 = new Product("P9","Bathroom cabinet");
+        Product product10 = new Product("P10","Mirror");
 
         //ORDER CREATION
         //----------------
-        Map<String, Product> products1 = new HashMap<>();
+        Map<String, Product> productsAll = new HashMap<>();
+
+        productsAll.put(product1.getId(),product1);
+        productsAll.put(product2.getId(),product2);
+        productsAll.put(product3.getId(),product3);
+        productsAll.put(product4.getId(),product4);
+        productsAll.put(product5.getId(),product5);
+        productsAll.put(product6.getId(),product6);
+        productsAll.put(product7.getId(),product7);
+        productsAll.put(product8.getId(),product8);
+        productsAll.put(product9.getId(),product9);
+        productsAll.put(product10.getId(),product10);
 
 
-        products1.put("O1",product1);
-        products1.put("O2",product2);
-        products1.put("O3",product3);
-        products1.put("O6",product4);
-        products1.put("O7",product5);
+        ProductRepo productRepo = new ProductRepo();
+        productRepo.setProducts(productsAll);
 
-        Map<String, Product> products2 = new HashMap<>();
-
-        products2.put("10",product1);
-        products2.put("O9",product1);
-        products2.put("O3",product1);
-        products2.put("O7",product1);
-        products2.put("O6",product1);
-        products2.put("O6",product1);
-        products2.put("O4",product1);
 
         //Order
         Order order1 = new Order();
         Order order2 = new Order();
 
-        order1.setProducts(products1);
-        order2.setProducts(products2);
+        List<Product> orderProducts1 = new ArrayList<>();
+        orderProducts1.add(product1);
+        orderProducts1.add(product4);
+        orderProducts1.add(product1);
+        orderProducts1.add(product9);
+        orderProducts1.add(product10);
 
-/*        Map<String, Order> orders = new HashMap<>();
+        List<Product> orderProducts2 = new ArrayList<>();
+        orderProducts2.add(product3);
+        orderProducts2.add(product5);
+        orderProducts2.add(product1);
+        orderProducts2.add(product7);
+        orderProducts2.add(product8);
 
-        orders.put("O1",order1);
-        orders.put("O2",order1);*/
+        order1.setProducts(orderProducts1);
+        order2.setProducts(orderProducts2);
 
         OrderRepo orderRepo = new OrderRepo();
         orderRepo.add(order1);
         orderRepo.add(order2);
 
+        System.out.println("Welche Serviceleistung wollen Sie in Anspruch nehmen?");
+        Scanner scanner = new Scanner(System.in);
 
+        Map<String, String> menue = new HashMap<>();
+        menue.put("a", "Einzelndes Produkt anzeigen.");
+        menue.put("b", "Alle Produkte anzeigen.");
+        menue.put("c", "Einzelndes Bestellung anzeigen.");
+        menue.put("d", "Alle Bestellungen anzeigen");
+        String input= scanner.next();
+        switch(input){
+            case "a":
+                break;
+            case "b":
+                break;
+            case "c":
+                break;
+            case "d":
+                break;
+            default:
+                System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
+                break;
 
+        }
 
+        ShopService shopService = new ShopService();
 
+        shopService.setOrderRepo(orderRepo);
+        shopService.setProductRepo(productRepo);
+
+        shopService.getProduct("P1");
     }
 }

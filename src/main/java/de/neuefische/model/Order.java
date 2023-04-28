@@ -1,12 +1,14 @@
 package de.neuefische.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order {
     private String id;
 
-    private Map<String, Product> products = new HashMap<>();
+    private List<Product> products = new ArrayList<>();
 
     public Order() {
 
@@ -15,9 +17,9 @@ public class Order {
         this.id = id;
     }
 
-    public Order(String id, Map<String, Product> orders) {
+    public Order(String id, List<Product> products) {
         this.id = id;
-        this.products = orders;
+        this.products = products;
     }
 
     public String getId() {
@@ -28,11 +30,11 @@ public class Order {
         this.id = id;
     }
 
-    public Map<String, Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Map<String, Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

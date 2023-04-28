@@ -13,7 +13,14 @@ public class ShopService {
 
     OrderRepo orderRepo;
 
+
+    public ShopService() {
+        this.productRepo = new ProductRepo();
+    }
+
     public Product getProduct(String productId) {
+
+        System.out.println(productRepo.get(productId));
         return null;
     }
 
@@ -33,4 +40,11 @@ public class ShopService {
         return null;
     }
 
+    public void setProductRepo(ProductRepo productRepo) {
+        this.productRepo = productRepo;
+    }
+
+    public void setOrderRepo(OrderRepo orderRepo) {
+        this.orderRepo = orderRepo;
+    }
 }
