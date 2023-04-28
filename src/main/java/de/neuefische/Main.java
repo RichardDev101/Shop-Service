@@ -15,31 +15,31 @@ public class Main {
     public static void main(String[] args) {
         //PRODUCT CREATION
         //-----------------
-        Product product1 = new Product("P1","Vacuum Cleaner");
-        Product product2 = new Product("P2","Audio Equipment");
-        Product product3 = new Product("P3","USB Stick");
-        Product product4 = new Product("P4","Record Player");
-        Product product5 = new Product("P5","Lawn mover");
-        Product product6 = new Product("P6","Couch");
-        Product product7 = new Product("P7","Wine Rack");
-        Product product8 = new Product("P8","Siemens Fridge");
-        Product product9 = new Product("P9","Bathroom cabinet");
-        Product product10 = new Product("P10","Mirror");
+        Product product1 = new Product("P1", "Vacuum Cleaner");
+        Product product2 = new Product("P2", "Audio Equipment");
+        Product product3 = new Product("P3", "USB Stick");
+        Product product4 = new Product("P4", "Record Player");
+        Product product5 = new Product("P5", "Lawn mover");
+        Product product6 = new Product("P6", "Couch");
+        Product product7 = new Product("P7", "Wine Rack");
+        Product product8 = new Product("P8", "Siemens Fridge");
+        Product product9 = new Product("P9", "Bathroom cabinet");
+        Product product10 = new Product("P10", "Mirror");
 
         //ORDER CREATION
         //----------------
         Map<String, Product> productsAll = new HashMap<>();
 
-        productsAll.put(product1.getId(),product1);
-        productsAll.put(product2.getId(),product2);
-        productsAll.put(product3.getId(),product3);
-        productsAll.put(product4.getId(),product4);
-        productsAll.put(product5.getId(),product5);
-        productsAll.put(product6.getId(),product6);
-        productsAll.put(product7.getId(),product7);
-        productsAll.put(product8.getId(),product8);
-        productsAll.put(product9.getId(),product9);
-        productsAll.put(product10.getId(),product10);
+        productsAll.put(product1.getId(), product1);
+        productsAll.put(product2.getId(), product2);
+        productsAll.put(product3.getId(), product3);
+        productsAll.put(product4.getId(), product4);
+        productsAll.put(product5.getId(), product5);
+        productsAll.put(product6.getId(), product6);
+        productsAll.put(product7.getId(), product7);
+        productsAll.put(product8.getId(), product8);
+        productsAll.put(product9.getId(), product9);
+        productsAll.put(product10.getId(), product10);
 
 
         ProductRepo productRepo = new ProductRepo();
@@ -71,13 +71,32 @@ public class Main {
         orderRepo.add(order1);
         orderRepo.add(order2);
 
-        System.out.println("Welche Serviceleistung wollen Sie in Anspruch nehmen?");
-        Scanner scanner = new Scanner(System.in);
-
         //Shopservice Instanciation+ Initialisation
         ShopService shopService = new ShopService();
         shopService.setProductRepo(productRepo);
 
+        //Flag for While loop
+        boolean selectionChoosed = true;
+        while (serviceMenu(shopService, selectionChoosed)) {
+
+        }
+
+
+
+            shopService.setOrderRepo(orderRepo);
+            shopService.setProductRepo(productRepo);
+
+            shopService.getProduct("P1");
+            shopService.listProducts();
+
+
+
+    }
+
+
+    public static String serviceMenu (ShopService shopService, boolean flag) {
+        System.out.println("Welche Serviceleistung wollen Sie in Anspruch nehmen?");
+        Scanner scanner = new Scanner(System.in);
         //Menu-Service-Request
         Map<String, String> menue = new HashMap<>();
         menue.put("a", "Einzelndes Produkt anzeigen.");
@@ -85,44 +104,33 @@ public class Main {
         menue.put("c", "Einzelndes Bestellung anzeigen.");
         menue.put("d", "Alle Bestellungen anzeigen");
         menue.put("e", "SERVICE BEENDEN");
-        String input= scanner.next();
+        String input = scanner.next();
 
-        //Flag for While loop
-        Boolean selectionChoosed = true;
-
-        while (selectionChoosed){
-            switch(input) {
-                case "a":
-                    System.out.println("Geben Sie bitte die gewünschte Produkt-ID an.");
-                    input = scanner.next();
-                    shopService.getProduct(input);
-                    break;
-                case "b":
-                    shopService.listProducts();
-                    break;
-                case "c":
-                    System.out.println("Geben Sie bitte die gewünschte ORDER-ID an.");
-                    input = scanner.next();
-                    shopService.getOrder(input);
-                    break;
-                case "d":
-                    shopService.listOrders();
-                    break;
-                case "e":
-                    selectionChoosed = false;
-                    System.out.println("Service wurde beendet.");
-                    break;
-                default:
-                    System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
-                    break;
-            }
+        switch (input) {
+            case "a":
+                System.out.println("Geben Sie bitte die gewünschte Produkt-ID an.");
+                input = scanner.next();
+                shopService.getProduct(input);
+                return selectionChoosed;
+            case "b":
+                shopService.listProducts();
+                break;
+            case "c":
+                System.out.println("Geben Sie bitte die gewünschte ORDER-ID an.");
+                input = scanner.next();
+                shopService.getOrder(input);
+                break;
+            case "d":
+                shopService.listOrders();
+                break;
+            case "e":
+                selectionChoosed = false;
+                System.out.println("Service wurde beendet.");
+                break;
+            default:
+                System.out.println("Es wurde keine Auswahl getroffen. Bitte trefen Sie eine Auswahl");
+                break;
         }
-
-
-        shopService.setOrderRepo(orderRepo);
-        shopService.setProductRepo(productRepo);
-
-        shopService.getProduct("P1");
-        shopService.listProducts();
     }
+
 }
