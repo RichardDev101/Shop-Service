@@ -6,7 +6,7 @@ import java.util.Map;
 public class Order {
     private String id;
 
-    private Map<String, Order> orders = new HashMap<>();
+    private Map<String, Product> products = new HashMap<>();
 
     public Order() {
 
@@ -15,9 +15,9 @@ public class Order {
         this.id = id;
     }
 
-    public Order(String id, Map<String, Order> orders) {
+    public Order(String id, Map<String, Product> orders) {
         this.id = id;
-        this.orders = orders;
+        this.products = orders;
     }
 
     public String getId() {
@@ -28,11 +28,11 @@ public class Order {
         this.id = id;
     }
 
-    public Map<String, Order> getOrders() {
-        return orders;
+    public Map<String, Product> getProducts() {
+        return products;
     }
 
-    public void setOrders(Map<String, Order> orders) {
-        this.orders = orders;
+    public void setProducts(Map<String, Product> products) {
+        this.products = products;
     }
 }
